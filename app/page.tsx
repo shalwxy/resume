@@ -203,7 +203,7 @@ export default function Home() {
 
           <ProjectCard
             period="2026.01 ~ 2026.11"
-            title="에러시로봇 · LLM 기반 운영 에러 1차 분석"
+            title="에러시로봇 · LLM 기반 운영 봇"
             summary="Slack에 쏟아지는 에러 알림을 LLM이 먼저 읽고 스레드에 원인·관련 변경·대응 포인터를 답하는 봇. 벤더 모델 폐기 장애를 3일 내 복구하며 모델 교체·재시도 구조를 함께 만듦."
             stack={["Vertex AI (LLM)", "Slack API", "GitLab", "OpenSearch"]}
           >
@@ -311,7 +311,7 @@ export default function Home() {
 
       <footer className="mt-16 border-t border-rule pt-6 text-center text-xs text-muted">
         © 2026 Seungha Lee ·{" "}
-        <a href="mailto:shalee@nexonuniverse.io">shalee@nexonuniverse.io</a>
+        <a href="mailto:shalwxy@gmail.com">shalwxy@gmail.com</a>
       </footer>
     </main>
   );
@@ -330,13 +330,36 @@ function Header() {
         분산 시스템의 데이터 일관성과 운영 가능한 구조를 설계·구축하는
         <b> 7년차 백엔드 엔지니어</b>.
       </p>
-      <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm text-muted">
-        <span>
-          <a href="mailto:shalee@nexonuniverse.io">shalee@nexonuniverse.io</a>
-        </span>
+      <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
+        <a href="mailto:shalwxy@gmail.com">shalwxy@gmail.com</a>
         <span>·</span>
-        <span>NEXON UNIVERSE · Maplestory Universe</span>
+        <a href="https://github.com/shalwxy" target="_blank" rel="noreferrer">
+          GitHub
+        </a>
+        <span>·</span>
+        <a
+          href="https://www.linkedin.com/in/seungha-lee-2aa442229"
+          target="_blank"
+          rel="noreferrer"
+        >
+          LinkedIn
+        </a>
+        <span>·</span>
+        <a href="https://shalwxy.github.io/" target="_blank" rel="noreferrer">
+          Blog
+        </a>
       </div>
+      <p className="mt-3 text-sm text-muted">
+        이 문서는 요약본입니다. 프로젝트별 상세·설계 결정·도식은{" "}
+        <a
+          href="https://shalwxy.github.io/career/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          경력기술서 (career)
+        </a>
+        에 있습니다.
+      </p>
     </header>
   );
 }
@@ -406,14 +429,14 @@ function SkillRow({
 }) {
   return (
     <div className="grid grid-cols-1 gap-y-2 py-5 sm:grid-cols-[150px_1fr] sm:gap-x-8">
-      <h3 className="text-[15px] font-semibold text-muted sm:text-right">
+      <h3 className="text-[15px] font-semibold leading-7 text-muted sm:text-right">
         {label}
       </h3>
-      <ul className="columns-1 gap-x-6 text-[14.5px] sm:columns-3">
+      <ul className="columns-1 gap-x-6 text-[14.5px] leading-7 sm:columns-3">
         {items.map(([name, level]) => (
           <li
             key={name}
-            className="flex break-inside-avoid items-center gap-2 py-[3px]"
+            className="flex h-7 break-inside-avoid items-center gap-2"
           >
             <LevelBadge level={level} />
             <span>{name}</span>
@@ -503,8 +526,8 @@ function ProjectCard({
 function Block({ label, children }: { label: string; children: ReactNode }) {
   const isList = Array.isArray(children);
   return (
-    <div className="grid grid-cols-[44px_1fr] gap-x-4 text-[14.5px] leading-relaxed">
-      <span className="pt-[2px] text-xs font-semibold uppercase tracking-[0.15em] text-muted">
+    <div className="grid grid-cols-[44px_1fr] gap-x-4 text-[14.5px] leading-6">
+      <span className="text-xs font-semibold uppercase leading-6 tracking-[0.15em] text-muted">
         {label}
       </span>
       {isList ? (
