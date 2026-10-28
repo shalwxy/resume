@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export default function Home() {
   return (
     <main className="mx-auto max-w-[760px] px-6 py-16 sm:px-8 sm:py-24">
@@ -412,6 +414,28 @@ function Header() {
         <a href="https://shalwxy.github.io/" target="_blank" rel="noreferrer">
           Blog
         </a>
+      </div>
+      <div className="mt-4 print:hidden">
+        <a
+          href={`${BASE_PATH}/resume.pdf`}
+          download="seungha-lee-resume.pdf"
+          className="inline-flex items-center gap-1.5 rounded-md bg-foreground px-3 py-1.5 text-xs font-semibold text-background no-underline hover:opacity-85"
+        >
+          <svg
+            viewBox="0 0 16 16"
+            width="12"
+            height="12"
+            aria-hidden="true"
+            className="shrink-0"
+          >
+            <path
+              fill="currentColor"
+              d="M8 1a1 1 0 0 1 1 1v6.6l1.3-1.3a1 1 0 1 1 1.4 1.4l-3 3a1 1 0 0 1-1.4 0l-3-3a1 1 0 1 1 1.4-1.4L7 8.6V2a1 1 0 0 1 1-1Zm-6 12a1 1 0 1 1 2 0v1h8v-1a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-2Z"
+            />
+          </svg>
+          PDF 다운로드
+        </a>
+        <span className="ml-3 text-xs text-muted">A4 · 3페이지 · 면접관용 요약본</span>
       </div>
       <p className="mt-3 text-sm text-muted">
         이 문서는 요약본입니다. 프로젝트별 상세·설계 결정·도식은{" "}

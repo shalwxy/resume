@@ -61,3 +61,113 @@ h4 {
   color: var(--foreground);
   letter-spacing: -0.02em;
 }
+
+@media print {
+  @page {
+    size: A4;
+    margin: 8mm 10mm;
+  }
+
+  :root {
+    --background: #ffffff;
+    --foreground: #111111;
+    --muted: #4b5563;
+    --accent: #0f766e;
+    --rule: #d1d5db;
+  }
+
+  html {
+    font-size: 12px;
+  }
+  body {
+    background: #ffffff !important;
+    line-height: 1.4;
+    letter-spacing: -0.012em;
+  }
+
+  main {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  section {
+    padding-top: 0.55rem !important;
+    padding-bottom: 0.55rem !important;
+    break-inside: avoid;
+  }
+
+  header {
+    margin-bottom: 0.6rem !important;
+  }
+
+  article,
+  li {
+    break-inside: avoid;
+  }
+
+  footer {
+    margin-top: 0.6rem !important;
+    padding-top: 0.4rem !important;
+  }
+
+  h2 {
+    margin-bottom: 0.5rem !important;
+  }
+  h3 {
+    margin-bottom: 0.2rem !important;
+  }
+
+  /* Collapse vertical rhythm between cards/items */
+  .space-y-12 > * + * {
+    margin-top: 0.7rem !important;
+  }
+  .space-y-8 > * + * {
+    margin-top: 0.55rem !important;
+  }
+  .space-y-4 > * + * {
+    margin-top: 0.3rem !important;
+  }
+  .space-y-3 > * + * {
+    margin-top: 0.25rem !important;
+  }
+  .space-y-2 > * + * {
+    margin-top: 0.2rem !important;
+  }
+  .mb-14 { margin-bottom: 0.6rem !important; }
+  .mb-7 { margin-bottom: 0.4rem !important; }
+  .mb-6 { margin-bottom: 0.35rem !important; }
+  .mb-5 { margin-bottom: 0.3rem !important; }
+  .mb-2 { margin-bottom: 0.15rem !important; }
+  .mt-16 { margin-top: 0.6rem !important; }
+  .mt-6 { margin-top: 0.3rem !important; }
+  .mt-5 { margin-top: 0.25rem !important; }
+  .mt-4 { margin-top: 0.2rem !important; }
+  .mt-3 { margin-top: 0.15rem !important; }
+  .mt-2 { margin-top: 0.12rem !important; }
+  .mt-1\.5 { margin-top: 0.1rem !important; }
+  .pt-6 { padding-top: 0.4rem !important; }
+  .pt-5 { padding-top: 0.3rem !important; }
+  .py-5 { padding-top: 0.3rem !important; padding-bottom: 0.3rem !important; }
+
+  /* Shrink Pretty-but-chunky Tailwind arbitrary sizes */
+  .text-\[15\.5px\] { font-size: 10.5px !important; line-height: 1.4 !important; }
+  .text-\[15px\] { font-size: 10.5px !important; line-height: 1.4 !important; }
+  .text-\[14\.5px\] { font-size: 10px !important; line-height: 1.35 !important; }
+  .text-\[14px\] { font-size: 10px !important; line-height: 1.35 !important; }
+  .text-\[18px\] { font-size: 11.5px !important; }   /* ProjectCard title */
+  .text-lg { font-size: 11.5px !important; }         /* JobCard title */
+  .text-2xl { font-size: 1.1rem !important; line-height: 1.1 !important; } /* Stat value */
+  .text-xl { font-size: 1rem !important; }
+  .text-4xl { font-size: 1.4rem !important; line-height: 1.05 !important; } /* Header name */
+
+  /* Keep links readable in print (printed as black) */
+  a {
+    color: var(--foreground) !important;
+    text-decoration: none !important;
+  }
+
+  /* Skill rows denser */
+  .leading-7 { line-height: 1.4 !important; }
+  .leading-6 { line-height: 1.35 !important; }
+  .h-7 { height: 1.1rem !important; }
+}
