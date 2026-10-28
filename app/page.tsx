@@ -135,7 +135,7 @@ export default function Home() {
       </Section>
 
       <Section title="PROJECT">
-        <p className="-mt-3 mb-7 text-[12.5px] text-muted">
+        <p className="mb-8 text-[12.5px] text-muted">
           아래 프로젝트는 모두{" "}
           <b className="text-foreground">NEXON UNIVERSE · Maplestory Universe</b>
           에서의 작업입니다.
