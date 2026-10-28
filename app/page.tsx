@@ -435,7 +435,7 @@ function Header() {
           </svg>
           PDF 다운로드
         </a>
-        <span className="ml-3 text-xs text-muted">A4 · 3페이지 · 면접관용 요약본</span>
+        <span className="ml-3 text-xs text-muted">A4 · 2페이지</span>
       </div>
       <p className="mt-3 text-sm text-muted">
         이 문서는 요약본입니다. 프로젝트별 상세·설계 결정·도식은{" "}
