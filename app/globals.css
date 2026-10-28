@@ -103,7 +103,7 @@ h4 {
     break-inside: avoid;
   }
   article {
-    break-inside: auto;
+    break-inside: avoid-page;
   }
 
   footer {
