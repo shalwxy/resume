@@ -47,7 +47,7 @@ export default function Home() {
           <SkillRow
             label="Communication"
             items={[
-              ["gRPC (unary·streaming)", 3],
+              ["gRPC", 3],
               ["HTTP / REST", 3],
               ["SSE", 3],
               ["Envoy", 2],
@@ -84,14 +84,14 @@ export default function Home() {
               ["Datadog", 3],
               ["Jaeger", 2],
               ["OpenSearch", 2],
-              ["Prometheus / Grafana", 2],
+              ["Prometheus·Grafana", 2],
             ]}
           />
           <SkillRow
             label="AI"
             items={[
               ["Vertex AI (LLM)", 2],
-              ["NVIDIA Omniverse / IsaacSim", 1],
+              ["Omniverse·IsaacSim", 1],
             ]}
           />
         </div>
@@ -439,7 +439,7 @@ function SkillRow({
             className="flex h-7 break-inside-avoid items-center gap-2"
           >
             <LevelBadge level={level} />
-            <span>{name}</span>
+            <span className="whitespace-nowrap">{name}</span>
           </li>
         ))}
       </ul>
