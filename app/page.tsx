@@ -14,17 +14,12 @@ export default function Home() {
           </p>
           <p>
             최근 3년은 Maplestory Universe에서 두 축에 집중했습니다. 체인 간
-            자산 이동을 다루는 <b>Swap &amp; Warp 도메인</b>을 처음부터
+            자산 이동을 다루는 <b>크로스체인 전송 도메인</b>을 처음부터
             설계했고, 서비스마다 흩어져 있던 제어 로직을 <b>단일 정책
-            서비스(api-sentinel)</b>로 모으는 일을 주도했습니다. 둘 다 &ldquo;여러
-            소스에서 오는 상태를 어떻게 한 곳에서 일관되게 다루는가&rdquo;라는 같은
-            질문 위에 있고, 그 위에서 운영을 자동화하는 <b>CDC 파이프라인</b>과
-            <b> LLM 에러 분석 봇</b>을 만들었습니다.
-          </p>
-          <p>
-            요청 하나의 수명 주기를 끝까지 따라갈 수 있는 상관관계 설계, 사고가
-            났을 때 재현·복구 가능한 사이드이펙트 경로, 운영팀이 알림만 보고도
-            원인에 접근할 수 있는 지표를 중요하게 생각합니다.
+            서비스</b>로 모으는 일을 주도했습니다. 둘 다 &ldquo;여러 소스에서
+            오는 상태를 어떻게 한 곳에서 일관되게 다루는가&rdquo;라는 같은
+            질문 위에 있고, 그 위에서 운영을 자동화하는 <b>CDC 분석
+            파이프라인</b>과 <b>LLM 기반 운영 봇</b>을 만들었습니다.
           </p>
         </div>
         <p className="mt-6 text-xs text-muted">
@@ -32,7 +27,21 @@ export default function Home() {
         </p>
       </Section>
 
-      <Section title="SKILL" hint={SKILL_LEVEL_HINT}>
+      <Section title="SKILL">
+        <ul className="mb-5 flex flex-wrap gap-x-5 gap-y-2 text-[12.5px] text-muted">
+          <li className="flex items-center gap-2">
+            <LevelBadge level={3} />
+            <span>Production 설계·운영 가능</span>
+          </li>
+          <li className="flex items-center gap-2">
+            <LevelBadge level={2} />
+            <span>운영 경험 있음</span>
+          </li>
+          <li className="flex items-center gap-2">
+            <LevelBadge level={1} />
+            <span>기초 수준</span>
+          </li>
+        </ul>
         <div className="divide-y divide-rule border-y border-rule">
           <SkillRow
             label="Languages"
@@ -87,13 +96,6 @@ export default function Home() {
               ["Prometheus·Grafana", 2],
             ]}
           />
-          <SkillRow
-            label="AI"
-            items={[
-              ["Vertex AI (LLM)", 2],
-              ["Omniverse·IsaacSim", 1],
-            ]}
-          />
         </div>
       </Section>
 
@@ -104,21 +106,28 @@ export default function Home() {
             company="NEXON UNIVERSE"
             role="Backend Developer · Platform Development Team"
           >
-            NEXON 자회사로, Maplestory IP를 기반으로 한 Web3 게임 플랫폼
-            <b> Maplestory Universe</b>를 만들고 있습니다. 크로스체인 전송
-            도메인(Swap &amp; Warp)과 정책 서비스(api-sentinel)를 신설·주도했고,
-            거래 이력·결제·알림·데이터 파이프라인·CI/CD에 함께 참여했습니다.
+            <p>
+              NEXON 자회사로, Maplestory IP를 기반으로 한 Web3 게임 플랫폼
+              <b> Maplestory Universe</b>를 만들고 있습니다. 크로스체인 전송
+              도메인(Swap &amp; Warp)과 정책 서비스(api-sentinel)를
+              신설·주도했고, 거래 이력·결제·알림·데이터 파이프라인·CI/CD에
+              함께 참여했습니다.
+            </p>
           </JobCard>
 
           <JobCard
             period="2019.11 ~ 2023.10"
             company="UCLICK"
-            role="AI R&D (2022.01~) · Backend Developer (~2021.12)"
+            role="Backend Developer → AI Engineering R&D"
           >
-            NVIDIA Omniverse R&amp;D(IsaacSim/ROS)와 GPU 솔루션 운영을 거쳐,
-            이전에는 UNO-GATEWAY(다중 DB 동적 API 플랫폼), UNO-MSP(OCI 관리
-            플랫폼), MDB(TCP-JSON 변환) 등 자사 B2B 백엔드를 Java/Spring으로
-            개발했습니다.
+            <p>
+              <b>2019.11–2021.12</b> 자사 B2B 백엔드(UNO-GATEWAY · UNO-MSP ·
+              MDB 등)를 Java/Spring으로 개발했습니다.
+            </p>
+            <p>
+              <b>2022.01–2023.10</b> NVIDIA Omniverse R&amp;D(IsaacSim/ROS)와
+              GPU 솔루션 운영을 담당했습니다.
+            </p>
           </JobCard>
         </div>
       </Section>
@@ -144,6 +153,11 @@ export default function Home() {
                 마이그레이션
               </li>
               <li>
+                <b>4개 서비스 담당자와 리뷰·합의로 범위를 맞춘 뒤 단계적
+                전환</b> — 각 서비스가 기존 코드를 걷어내고 sentinel 호출로
+                바꾸는 PR을 단일 서비스 단위로 함께 머지
+              </li>
+              <li>
                 코드 분기 대신 <b>런타임 설정 기반</b>으로 정책을 바꾸는 체계
                 도입. 설정은 부팅 시 주입하는 원칙을 세워 요청 경로에서의
                 설정 조회·패닉 가능성을 차단
@@ -153,7 +167,6 @@ export default function Home() {
                 Window + jitter · Lockout: OTP 반복 실패 차단, 실패 횟수
                 유지/초기화를 정책으로 설정화 · Feature Flag: 런타임 변경
               </li>
-              <li>정책 변경 배포 프로세스를 자동화해 운영 변경 리드타임 단축</li>
             </Block>
             <Block label="결과">
               정책의 소스 오브 트루스가 한 곳으로 모이면서 서비스 간 동작
@@ -196,8 +209,8 @@ export default function Home() {
               </li>
             </Block>
             <Block label="결과">
-              배치 동기화를 CDC로 완전히 대체해 유실 경로를 제거했고, 적재
-              지연이 배치 주기에서 변경 즉시로 줄었습니다.
+              적재 지연이 <b>일 단위 배치 주기에서 커밋 직후</b>로 줄었고,
+              Snowflake Task 조건부 실행으로 유휴 구간 비용도 함께 축소.
             </Block>
           </ProjectCard>
 
@@ -229,25 +242,40 @@ export default function Home() {
               </li>
             </Block>
             <Block label="결과">
-              에러의 1차 분류가 사람에서 봇으로 넘어가 대응 착수까지의 시간이
-              줄었고, 벤더 모델 폐기 장애는 <b>3일 내 1차 대응</b>을 마쳤습니다.
+              <b>1차 분류가 사람 → 봇</b>으로 넘어가 야간·주말 대응 지연이
+              해소됐고, 벤더 모델 폐기 장애는 <b>3일 내 1차 대응 완료</b>
+              (재발 시 모델 교체만으로 처리).
             </Block>
           </ProjectCard>
 
           <ProjectCard
             period="2024.06 ~ 2025.09"
-            title="Swap & Warp · 크로스체인 전송 도메인 신설"
-            summary="체인 간 자산 이동(Swap, Warp)의 이력 도메인과 BFF를 처음부터 설계·구현. 서로 다른 두 이벤트 소스가 만드는 순서 불일치와 중복을 일관성 있게 흡수하는 적재 경로를 만듦."
-            stack={["Go", "gRPC", "Kafka", "PostgreSQL", "Redis", "MongoDB"]}
+            title="대용량 트랜잭션 이력 재정비 · 크로스체인 전송 도메인 신설"
+            summary="거래·민팅·전송 이력을 쌓는 대용량 서비스(api-activity)의 레이어·컨슈머·메시지 포맷을 재정비하고, 그 위에 크로스체인 전송 도메인(Swap & Warp)과 BFF를 처음부터 신설. 서로 다른 두 이벤트 소스가 만드는 순서 불일치와 중복을 일관성 있게 흡수하는 적재 경로를 만듦."
+            stack={[
+              "Go",
+              "gRPC",
+              "Kafka",
+              "PostgreSQL",
+              "Redis",
+              "MongoDB",
+              "DocumentDB",
+            ]}
           >
             <Block label="문제">
-              Maplestory Universe에 크로스체인 자산 전송 기능이 들어오면서,
-              체인 간 이동 이력을 추적·조회하는 도메인 자체가 없었습니다.
-              전송 결과는 tracker(요청 측)와 watcher(체인 측) 두 소스에서
-              별도의 이벤트로 도착하고, 순서가 보장되지 않으며 같은 블록
-              시각의 이벤트가 중복으로 올 수 있었습니다.
+              Maplestory Universe의 거래·민팅·전송 이력은 하나의 서비스에
+              쌓이지만, 요청 측(tracker)과 체인 측(watcher) 두 소스에서 별도
+              이벤트가 순서 보장 없이 도착하고, 같은 블록 시각의 이벤트가
+              중복으로 올 수 있었습니다. 그 위에 추가되는 <b>크로스체인 자산
+              전송(Swap &amp; Warp) 이력을 추적·조회하는 도메인은 아예
+              없었습니다.</b>
             </Block>
             <Block label="설계">
+              <li>
+                <b>api-activity 레이어 재정비 · 컨슈머 일반화 · 메시지 포맷 v2</b>
+                — 이후 거래/민팅/전송/Swap&amp;Warp/USDT가 같은 적재 경로 위에
+                차례로 올라감
+              </li>
               <li>
                 Swap &amp; Warp를 거래 이력과 분리된 <b>별도 도메인</b>으로
                 정의하고, 게이트웨이 역할의 신규 BFF(bff-swapnwarp) 구성
@@ -258,53 +286,89 @@ export default function Home() {
                 구조적으로 불가능하도록 설계
               </li>
               <li>
-                요청 정보(Info)와 결과(Result)의 동시 적재를 PostgreSQL{" "}
-                <b>advisory lock</b>으로 직렬화. 블록 시각이 같은 이벤트를 stale로
-                오판하지 않는 중복 판정 규칙 정립
+                요청 정보(Info)와 결과(Result)의 동시 적재를 <b>Redis NX +
+                PostgreSQL advisory lock</b>으로 직렬화, <b>DB 제약 전파로
+                롤백 → 재시도 → 멱등 Modify 수렴 경로</b> 확보, 비정상
+                이벤트는 DLQ로 분리
               </li>
-              <li>
-                DB 제약 위반을 삼키지 않고 전파하도록 바꿔 트랜잭션 롤백 →
-                컨슈머 재시도 → 멱등 Modify로 수렴하는 <b>재시도 경로</b> 확보
-              </li>
-              <li>트랜잭션 결과 확정 시 알림 이벤트를 발행하는 메커니즘 구축</li>
             </Block>
             <Block label="결과">
               크로스체인 전송 이력이 사용자 관점에서 한 줄로 보이는 조회
-              기능을 제공했고, 이후 USDT·워프 지연 같은 확장이 같은 적재
-              경로 위에 올라갈 수 있는 기반이 됐습니다.
+              기능을 라이브까지 제공했고, 이후 <b>USDT·워프 지연 같은 확장이
+              모두 같은 적재 경로 위에 얹혔습니다.</b>
             </Block>
           </ProjectCard>
 
-          <div className="text-[14px] leading-relaxed text-muted">
-            <span className="font-semibold text-foreground">그 외 참여</span>{" "}
-            · 온체인/오프체인 동기화(닉네임 중복 분산 락, NFT 검증 배치화) ·
-            Worldpay 3DS 결제 인증 · gRPC 스트리밍/SSE 통합 알림(5만+ 수신자)
-            · 5개 환경 CI/CD·Helm·Envoy 운영
+          <div className="space-y-3 text-[14px] leading-relaxed text-muted">
+            <p className="font-semibold uppercase tracking-[0.15em] text-foreground">
+              그 외 참여
+            </p>
+            <ul className="list-disc space-y-2 pl-5 marker:text-muted">
+              <li>
+                <span className="font-semibold text-foreground">
+                  결제·인증
+                </span>{" "}
+                · Worldpay(FraudSight 3DS) 신용카드 인증·재인증 ·{" "}
+                <b>Redis Lua</b>로 OTP 일일 3회 카운트 증가+만료 원자 처리 ·
+                스테이블 코인(USDT) 선차감·롤백을 토큰별로 일반화
+              </li>
+              <li>
+                <span className="font-semibold text-foreground">
+                  통합 알림·동기화
+                </span>{" "}
+                · MSU 통합 알림(SSE)에서 JWT 검증 자체 흡수, 대량 수신자를{" "}
+                <b>gRPC streaming 500건 청크·5만 건 상한</b>으로 분리 ·
+                캐릭터 민트 닉네임 중복 Redis 분산 락 선점
+              </li>
+              <li>
+                <span className="font-semibold text-foreground">
+                  운영 자동화·마이그레이션
+                </span>{" "}
+                · KYC 업체 변경에 따른 <b>전 사용자 데이터 이관 배치</b>
+                (Argos → Sumsub, 구간 분할 병렬·재진입 가능한 커서·호출 한도
+                관리, live 완료) · 디스코드 뱃지·역할 동기화 배치
+              </li>
+              <li>
+                <span className="font-semibold text-foreground">
+                  인프라·CI/CD·게이트웨이
+                </span>{" "}
+                · 담당 서비스의 GitLab CI · Dockerfile · Helm/K8s 매니페스트 ·
+                DDL 운영 · Envoy gRPC → REST route · 인증 설정 ·{" "}
+                <b>전사 proto 저장소 도메인별 모듈화 주도</b>
+              </li>
+            </ul>
           </div>
         </div>
       </Section>
 
-      <Section title="CORE COMPETENCY" last>
-        <ul className="list-disc space-y-2 pl-5 text-[14.5px] marker:text-muted">
+      <Section title="HOW I WORK" last>
+        <ul className="list-disc space-y-3 pl-5 text-[14.5px] leading-relaxed marker:text-muted">
           <li>
-            <b>백엔드(Go)</b> · 서비스 아키텍처 설계, 레이어드/인터페이스 기반
-            디커플링, gRPC·Kafka 기반 통신, 리팩토링
+            <b>실패 경로부터 정합니다.</b> 선차감·롤백, DLQ·재시도, CDC처럼
+            &ldquo;잘못됐을 때 어떻게 복구할지&rdquo;를 먼저 정하고 구현합니다.
+            결함 수정은 피처와 분리해 먼저 머지합니다 — 피처가 롤백돼도 수정은
+            살아남아야 하니까요.
           </li>
           <li>
-            <b>데이터·메시징</b> · 용도별 데이터 저장소 선정, Kafka 컨슈머 설계,
-            CDC 파이프라인 설계, DDL 관리, 쿼리 최적화
+            <b>정책은 코드 분기가 아니라 설정으로 받습니다.</b> 정책이 바뀔
+            때 커밋이 아니라 설정이 바뀌어야 하고, 설정은 요청 경로가 아니라
+            부팅 시 주입합니다.
           </li>
           <li>
-            <b>인프라·운영</b> · CI/CD 운영, Kubernetes 매니페스트 관리, 리소스
-            최적화, 게이트웨이 설정, 다중 환경 배포
+            <b>담당 서비스의 배포·매니페스트·DDL은 제 일입니다.</b> GitLab CI →
+            Helm/Kubernetes → Rundeck 배포, 대역마다 다른 배포 방식, DBA 검토를
+            거친 DDL까지 한 사람이 끝까지 봅니다.
           </li>
           <li>
-            <b>관측·디버깅</b> · 상관관계 ID 설계, 요청 end-to-end 추적,
-            가설 기반 디버깅, 운영 자동화
+            <b>요청 하나를 끝까지 따라갈 수 있어야 합니다.</b> 상관관계 키를
+            먼저 설계하고, Datadog·Jaeger·OpenSearch에서 실제로 추적되는지
+            배포 후 확인합니다.
           </li>
           <li>
-            <b>협업</b> · 요구사항 명세 정리, 비기술 조직과의 커뮤니케이션,
-            문서화, 코드 리뷰 실천
+            <b>리뷰에서 나온 지적은 팀 원칙으로 승격합니다.</b> 결제·보안
+            기능은 리뷰 2회차까지 돌리고, &ldquo;외부 호출은 log-and-swallow
+            금지&rdquo;, &ldquo;설정은 부팅 시 주입&rdquo; 같은 원칙을
+            문서화해 다음 작업에 반영합니다.
           </li>
         </ul>
       </Section>
@@ -360,18 +424,36 @@ function Header() {
         </a>
         에 있습니다.
       </p>
+      <div className="mt-6 border-t border-rule pt-5">
+        <p className="mb-3 text-[11px] uppercase tracking-[0.18em] text-muted">
+          Maplestory Universe · 최근 3년
+        </p>
+        <dl className="grid grid-cols-2 gap-y-3 sm:grid-cols-4 sm:gap-x-4">
+          <Stat value="3년" label="재직" />
+          <Stat value="6" label="주요 Go 서비스" />
+          <Stat value="4" label="신규 서비스·도메인·봇" />
+          <Stat value="5" label={<>배포 대역<br />dev·test·qa·stage·live</>} />
+        </dl>
+      </div>
     </header>
+  );
+}
+
+function Stat({ value, label }: { value: string; label: ReactNode }) {
+  return (
+    <div>
+      <dt className="font-mono text-2xl font-semibold leading-none">{value}</dt>
+      <dd className="mt-1.5 text-[11px] leading-snug text-muted">{label}</dd>
+    </div>
   );
 }
 
 function Section({
   title,
-  hint,
   children,
   last,
 }: {
   title: string;
-  hint?: string[];
   children: ReactNode;
   last?: boolean;
 }) {
@@ -379,42 +461,11 @@ function Section({
     <section
       className={`${last ? "" : "border-b border-rule"} py-10 first:pt-0`}
     >
-      <h2 className="mb-6 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-muted">
+      <h2 className="mb-6 text-xs font-semibold uppercase tracking-[0.22em] text-muted">
         {title}
-        {hint && <Hint lines={hint} />}
       </h2>
       {children}
     </section>
-  );
-}
-
-const SKILL_LEVEL_HINT = [
-  "1: 기초 수준",
-  "2: 운영 경험 있음",
-  "3: Production 설계·운영 가능",
-];
-
-function Hint({ lines }: { lines: string[] }) {
-  return (
-    <span className="group relative inline-flex">
-      <button
-        type="button"
-        aria-label={lines.join(", ")}
-        className="flex h-4 w-4 items-center justify-center rounded-full bg-foreground text-[10px] font-bold normal-case tracking-normal text-background"
-      >
-        ?
-      </button>
-      <span
-        role="tooltip"
-        className="pointer-events-none absolute left-6 top-1/2 z-10 w-max -translate-y-1/2 rounded-md bg-foreground px-3 py-2 text-[12px] font-medium normal-case leading-5 tracking-normal text-background opacity-0 shadow-lg transition-opacity group-hover:opacity-100 group-focus-within:opacity-100"
-      >
-        {lines.map((l) => (
-          <span key={l} className="block">
-            {l}
-          </span>
-        ))}
-      </span>
-    </span>
   );
 }
 
@@ -483,7 +534,7 @@ function JobCard({
         </h3>
         <span className="font-mono text-xs text-muted">{period}</span>
       </header>
-      <p className="text-[15px] leading-relaxed">{children}</p>
+      <div className="space-y-2 text-[15px] leading-relaxed">{children}</div>
     </article>
   );
 }
