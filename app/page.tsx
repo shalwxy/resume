@@ -242,6 +242,12 @@ export default function Home() {
                 봇이 판단하기 어려운 케이스는 담당자에게 <b>escalation</b>하도록
                 해, 자동 응답이 오답을 확신하는 경로를 차단
               </li>
+              <li>
+                <b>일/월 비용 상한 · PII 마스킹 · dedupe · 서킷브레이커</b>를
+                서비스 로직 밖의 독립 가드레일로 두고, 프롬프트는 실사용에서
+                본 실패 모드(외부 서비스 오류를 내부 재시작으로 오진 등)를
+                규칙으로 승격해 관리
+              </li>
             </Block>
             <Block label="결과">
               <b>1차 분류가 사람 → 봇</b>으로 넘어가 야간·주말 대응 지연이
@@ -316,11 +322,10 @@ export default function Home() {
               </li>
               <li>
                 <span className="font-semibold text-foreground">
-                  통합 알림·동기화
+                  통합 알림
                 </span>{" "}
                 · MSU 통합 알림(SSE)에서 JWT 검증 자체 흡수, 대량 수신자를{" "}
-                <b>gRPC streaming 500건 청크·5만 건 상한</b>으로 분리 ·
-                캐릭터 민트 닉네임 중복 Redis 분산 락 선점
+                <b>gRPC streaming 500건 청크·5만 건 상한</b>으로 분리
               </li>
               <li>
                 <span className="font-semibold text-foreground">
