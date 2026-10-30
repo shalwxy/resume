@@ -25,7 +25,7 @@ export default function Home() {
           </p>
         </div>
         <p className="mt-6 text-xs text-muted">
-          최종 업데이트 · 2026. 10. 28.
+          최종 업데이트 · 2026. 10. 30.
         </p>
       </Section>
 
@@ -224,7 +224,7 @@ export default function Home() {
           <ProjectCard
             period="2026.01 ~ 2026.11"
             title="에러시로봇 · LLM 기반 운영 봇"
-            summary="Slack에 쏟아지는 에러 알림을 LLM이 먼저 읽고 스레드에 원인·관련 변경·대응 포인터를 답하는 봇. 벤더 모델 폐기 장애를 3일 내 복구하며 모델 교체·재시도 구조를 함께 만듦."
+            summary="Slack에 쏟아지는 에러 알림을 LLM이 먼저 읽고 스레드에 원인·관련 변경·대응 포인터를 답하는 봇. 운영 에러의 1차 분류를 사람에서 봇으로 넘김."
             stack={["Vertex AI (LLM)", "Slack API", "GitLab", "OpenSearch"]}
           >
             <Block label="문제">
@@ -242,16 +242,11 @@ export default function Home() {
                 봇이 판단하기 어려운 케이스는 담당자에게 <b>escalation</b>하도록
                 해, 자동 응답이 오답을 확신하는 경로를 차단
               </li>
-              <li>
-                벤더가 모델을 폐기해 봇이 멈춘 장애에서 <b>모델 교체 +
-                재시도/백오프 + 세마포어</b>로 재구성. 이후 같은 장애는 모델
-                교체만으로 처리 가능
-              </li>
             </Block>
             <Block label="결과">
               <b>1차 분류가 사람 → 봇</b>으로 넘어가 야간·주말 대응 지연이
-              해소됐고, 벤더 모델 폐기 장애는 <b>3일 내 1차 대응 완료</b>
-              (재발 시 모델 교체만으로 처리).
+              해소됐고, 반복되는 에러는 과거 분석을 재사용해 즉시 포인터를
+              제공.
             </Block>
           </ProjectCard>
 
