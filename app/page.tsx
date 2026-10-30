@@ -372,9 +372,8 @@ export default function Home() {
             배포 후 확인합니다.
           </li>
           <li>
-            <b>리뷰에서 나온 지적은 팀 원칙으로 승격합니다.</b> 결제·보안
-            기능은 리뷰 2회차까지 돌리고, &ldquo;외부 호출은 log-and-swallow
-            금지&rdquo;, &ldquo;설정은 부팅 시 주입&rdquo; 같은 원칙을
+            <b>리뷰에서 나온 지적은 팀 원칙으로 승격합니다.</b>
+            &ldquo;외부 호출은 log-and-swallow 금지&rdquo; 같은 원칙을
             문서화해 다음 작업에 반영합니다.
           </li>
         </ul>
