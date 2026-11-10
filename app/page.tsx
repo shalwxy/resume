@@ -119,7 +119,7 @@ export default function Home() {
 
           <JobCard
             period="2019.11 ~ 2023.10"
-            company="UCLICK"
+            company="TURTLE KNOWLEDGE"
             role="Backend Developer → AI Engineering R&D"
           >
             <p>
