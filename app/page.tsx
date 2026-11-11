@@ -25,7 +25,7 @@ export default function Home() {
           </p>
         </div>
         <p className="mt-6 text-xs text-muted">
-          최종 업데이트 · 2026. 10. 30.
+          최종 업데이트 · 2026. 11. 11.
         </p>
       </Section>
 
@@ -183,7 +183,7 @@ export default function Home() {
           </ProjectCard>
 
           <ProjectCard
-            period="2026.01 ~ 2026.11"
+            period="2026.06 ~ 2026.11"
             title="PostgreSQL CDC → Snowflake 파이프라인"
             summary="배치 동기화와 애플리케이션 Kafka 발행에 기대던 분석 데이터 적재를 Debezium 기반 CDC로 교체. 발행 실패로 유실되던 경로를 없애고 실시간성을 확보. 설계·구현 담당."
             stack={[
@@ -222,8 +222,8 @@ export default function Home() {
           </ProjectCard>
 
           <ProjectCard
-            period="2026.01 ~ 2026.11"
-            title="에러시로봇 · LLM 기반 운영 봇"
+            period="2026.07 ~ 2026.11"
+            title="LLM 에러 분석 봇"
             summary="Slack에 쏟아지는 에러 알림을 LLM이 먼저 읽고 스레드에 원인·관련 변경·대응 포인터를 답하는 봇. 운영 에러의 1차 분류를 사람에서 봇으로 넘김."
             stack={["Vertex AI (LLM)", "Slack API", "GitLab", "OpenSearch"]}
           >
