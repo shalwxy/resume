@@ -262,12 +262,15 @@ export default function Home() {
             role="Backend Developer → AI Engineering R&D"
           >
             <p>
-              <b>2019.11–2021.12</b> 자사 B2B 백엔드(UNO-GATEWAY · UNO-MSP ·
-              MDB 등)를 Java/Spring으로 개발했습니다.
+              <b>2019.11–2021.12</b> 다중 DB(Oracle · MySQL/MariaDB · MSSQL 등 7종)
+              연계와 Ribbon 기반 로드밸런싱으로 인증·라우팅을 통합한 멀티테넌트 API
+              게이트웨이(UNO-GATEWAY)를 비롯해 자사 B2B 백엔드(UNO-MSP · MDB 등)를
+              Java/Spring으로 설계·개발했습니다.
             </p>
             <p>
-              <b>2022.01–2023.10</b> NVIDIA Omniverse R&amp;D(IsaacSim/ROS)와
-              GPU 솔루션 운영을 담당했습니다.
+              <b>2022.01–2023.10</b> NVIDIA Omniverse R&amp;D(IsaacSim/ROS)를 수행하고,
+              Ansible · Prometheus · Grafana를 활용해 온프레미스 GPU 클러스터의
+              프로비저닝 자동화 및 모니터링 환경을 구축·운영했습니다.
             </p>
           </JobCard>
         </div>
