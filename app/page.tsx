@@ -6,27 +6,271 @@ export default function Home() {
   return (
     <main className="mx-auto max-w-[760px] px-6 py-16 sm:px-8 sm:py-24">
       <Header />
-      <Section title="INTRODUCE">
+      <Section title="CORE IMPACT">
         <div className="space-y-4 text-[15.5px]">
           <p>
-            서비스가 어떻게 요청을 받고, 데이터를 어떻게 보관하며, 어떤 경로로
-            실패와 복구를 만들어 내는지에 집중해 왔습니다. Java 백엔드(2년) →
-            AI/GPU 인프라 R&amp;D(2년) → Go 백엔드(3년)의 <b>7년</b>을 거치며,
-            분산 시스템의 데이터 일관성과 운영 가능한 구조를 설계·구축했습니다.
+            Java 백엔드(2년) → AI/GPU 인프라 R&amp;D(2년) → Go 백엔드(3년)의{" "}
+            <b>7년</b>을 거치며, 대용량 트래픽 환경에서 트랜잭션 무결성을
+            보장하고 장애에서 유연하게 복구되는 내결함성(Fault-Tolerant)
+            아키텍처를 설계·구축해 왔습니다.
           </p>
           <p>
-            최근 3년은 Maplestory Universe에서 두 축에 집중했습니다. 체인 간
-            자산 이동을 다루는 <b>크로스체인 전송 도메인</b>을 처음부터
-            설계했고, 서비스마다 흩어져 있던 제어 로직을 <b>단일 정책
-            서비스</b>로 모으는 일을 주도했습니다. 둘 다 &ldquo;여러 소스에서
-            오는 상태를 어떻게 한 곳에서 일관되게 다루는가&rdquo;라는 같은
-            질문 위에 있고, 그 위에서 운영을 자동화하는 <b>CDC 분석
-            파이프라인</b>과 <b>LLM 기반 운영 봇</b>을 만들었습니다.
+            최근 3년은 Maplestory Universe에서 두 축에 집중했습니다.
+            파편화된 트래픽 제어 로직을 <b>단일 정책 서비스</b>로
+            통합했고, 이기종 이벤트 소스 간 상태 불일치를 해결하는{" "}
+            <b>분산 트랜잭션 파이프라인</b>을 설계했습니다. 그 위에서
+            운영을 자동화하는 <b>CDC 데이터 파이프라인</b>과 <b>LLM 기반
+            운영 봇</b>을 만들었습니다.
           </p>
         </div>
         <p className="mt-6 text-xs text-muted">
-          최종 업데이트 · 2026. 11. 11.
+          최종 업데이트 · 2026. 11. 17.
         </p>
+      </Section>
+
+      <Section title="WORK EXPERIENCE">
+        <div className="space-y-10">
+          <JobCard
+            period="2023.11 ~ 현재"
+            company="NEXON UNIVERSE"
+            role="Backend Developer · Platform Development Team"
+          >
+            <p>
+              NEXON 자회사로, Maplestory IP를 기반으로 한 Web3 게임 플랫폼
+              <b> Maplestory Universe</b>를 만들고 있습니다. 누적 가입자
+              500만 · DAU 30만 · 동시 접속자 5만 규모이며, API
+              게이트웨이는 최대 RPS 24,000을 처리합니다(Datadog 기준). 크로스체인 전송
+              도메인(Swap &amp; Warp)과 정책 서비스를
+              신설·주도했고, 거래 이력·결제·알림·데이터 파이프라인·CI/CD에
+              함께 참여했습니다.
+            </p>
+          </JobCard>
+
+          <div className="space-y-10">
+              <ProjectCard
+                period="2026.01 ~ 현재"
+                title="전사 트래픽 제어 정책 통합 플랫폼 구축"
+                summary="정책 단일 진실 공급원(SSOT) 확보로 서비스 간 정합성 불일치 제거 및 신규 서비스 온보딩 리드타임 단축. 설계부터 마이그레이션, 배포 자동화까지 전 과정 주도."
+                stack={["Go", "gRPC", "PostgreSQL", "Redis"]}
+              >
+                <Block label="문제">
+                  ACL, Rate Limit, Lockout, Feature Flag가 서비스마다 다른 코드와
+                  다른 저장소에 구현되어 있었습니다. 같은 정책을 바꾸려면 서비스
+                  4곳을 각각 고쳐 배포해야 했고, 동작이 서로 어긋나는 일이
+                  잦았습니다.
+                </Block>
+                <Block label="설계">
+                  <li>
+                    정책 서비스를 신설해 4개 서비스가 <b>단일 진입점</b>으로 정책을
+                    조회하도록 구조 변경. 기존 제어 로직을 서비스별로 걷어내며
+                    마이그레이션
+                  </li>
+                  <li>
+                    <b>4개 서비스 담당자와 리뷰·합의로 범위를 맞춘 뒤 단계적
+                    전환</b> — 각 서비스가 기존 코드를 걷어내고 정책 서비스
+                    호출로 바꾸는 PR을 단일 서비스 단위로 함께 머지
+                  </li>
+                  <li>
+                    코드 분기 대신 <b>런타임 설정 기반</b>으로 정책을 바꾸는 체계
+                    도입. 설정은 부팅 시 주입하는 원칙을 세워 요청 경로에서의
+                    설정 조회·패닉 가능성을 차단
+                  </li>
+                  <li>
+                    ACL: 지갑/IP 화이트·블랙리스트 · Rate Limit: Sliding/Fixed
+                    Window + jitter · Lockout: OTP 반복 실패 차단, 실패 횟수
+                    유지/초기화를 정책으로 설정화 · Feature Flag: 런타임 변경
+                  </li>
+                </Block>
+                <Block label="결과">
+                  정책의 단일 진실 공급원(SSOT)을 확보하면서 서비스 간 동작
+                  불일치가 구조적으로 사라졌고, 신규 서비스는 제어 로직을 다시
+                  만들 필요 없이 정책 서비스에 연동하기만 하면 되어 온보딩
+                  리드타임이 줄었습니다.
+                </Block>
+              </ProjectCard>
+
+              <ProjectCard
+                period="2026.06 ~ 2026.11"
+                title="실시간 CDC 데이터 파이프라인 구축"
+                summary="애플리케이션 이중 쓰기(Dual Write)로 인한 유실 경로를 원천 차단하고, 적재 지연을 일 단위에서 수 초 이내(Near Real-Time)로 단축. Debezium 기반 CDC로 설계·구현 담당."
+                stack={[
+                  "Debezium",
+                  "PostgreSQL replication slot",
+                  "Kafka",
+                  "Snowflake Stream/Task",
+                ]}
+              >
+                <Block label="문제">
+                  PostgreSQL → Snowflake 적재는 주기 배치였고, 거래 확정 이벤트는
+                  애플리케이션이 Kafka에 직접 발행했습니다. 발행이 실패하면 DB에는
+                  남아 있지만 하류에는 영원히 도착하지 않는 데이터가 생겼고, 배치
+                  주기만큼의 지연은 분석과 운영 조회를 느리게 만들었습니다.
+                </Block>
+                <Block label="설계">
+                  <li>
+                    Debezium 커넥터로 PostgreSQL 변경을 Kafka로 스트리밍하고,
+                    Snowflake Stream/Task로 적재. <b>DB 커밋 자체가 발행</b>이 되어
+                    애플리케이션 발행 실패라는 유실 경로가 사라짐
+                  </li>
+                  <li>
+                    replication slot이 방치되면 WAL이 쌓여 운영 DB를 위협하므로,
+                    slot <b>keepalive 배치</b>를 두어 유휴 구간에서도 slot이
+                    전진하도록 관리
+                  </li>
+                  <li>
+                    Snowflake Task를 조건부로 실행해 변경이 없는 구간에 웨어하우스
+                    비용이 발생하지 않도록 최적화
+                  </li>
+                </Block>
+                <Block label="결과">
+                  적재 지연이 <b>일 단위 배치 주기에서 수 초 이내(커밋 직후)</b>로
+                  줄었고, Snowflake Task 조건부 실행으로 유휴 구간 비용도 함께
+                  축소.
+                </Block>
+              </ProjectCard>
+
+              <ProjectCard
+                period="2026.07 ~ 2026.11"
+                title="LLM 기반 장애 원인 자동 진단 및 운영 자동화 시스템"
+                summary="커밋 이력·로그 상관분석 자동화로 운영 알림 1차 트리아지(Triage)를 무인화하고 장애 대응 시간(MTTR) 단축. Slack 스레드에 원인·대응 포인터를 자동 응답."
+                stack={["Vertex AI (LLM)", "Slack API", "GitLab", "OpenSearch"]}
+              >
+                <Block label="문제">
+                  운영 에러 알림은 사람이 하나씩 열어 로그를 찾고 최근 배포와
+                  대조해야 했습니다. 알림 수가 늘수록 1차 분류에 드는 시간이
+                  대응 속도를 결정했고, 야간·주말에는 그마저 지연됐습니다.
+                </Block>
+                <Block label="설계">
+                  <li>
+                    에러 알림 수신 → LLM 1차 분석 → Slack 스레드 자동 응답 흐름.
+                    분석 시 <b>GitLab 최근 커밋 대조</b>와 <b>OpenSearch 히스토리</b>를
+                    함께 넣어 &ldquo;무엇이 바뀌어서 터졌는지&rdquo;까지 답하게 구성
+                  </li>
+                  <li>
+                    봇이 판단하기 어려운 케이스는 담당자에게 <b>escalation</b>하도록
+                    해, 자동 응답이 오답을 확신하는 경로를 차단
+                  </li>
+                  <li>
+                    <b>일/월 비용 상한 · PII 마스킹 · dedupe · 서킷브레이커</b>를
+                    서비스 로직 밖의 독립 가드레일로 두고, 프롬프트는 실사용에서
+                    본 실패 모드(외부 서비스 오류를 내부 재시작으로 오진 등)를
+                    규칙으로 승격해 관리
+                  </li>
+                </Block>
+                <Block label="결과">
+                  <b>1차 분류를 사람에서 봇으로</b> 넘겨 야간·주말 대응 지연을
+                  해소했고, 반복되는 에러는 과거 분석을 재사용해 즉시 대응
+                  포인터를 제공해 <b>MTTR을 단축</b>했습니다.
+                </Block>
+              </ProjectCard>
+
+              <ProjectCard
+                period="2024.06 ~ 2025.09"
+                title="대용량 트랜잭션 이력 재정비 · 크로스체인 전송 도메인 신설"
+                summary="거래·민팅·전송 이력을 쌓는 대용량 서비스의 레이어·컨슈머·메시지 포맷을 재정비하고, 그 위에 크로스체인 전송 도메인(Swap & Warp)과 BFF를 처음부터 신설. 서로 다른 두 이벤트 소스가 만드는 순서 불일치와 중복을 일관성 있게 흡수하는 적재 경로를 만듦."
+                stack={[
+                  "Go",
+                  "gRPC",
+                  "Kafka",
+                  "PostgreSQL",
+                  "Redis",
+                  "MongoDB",
+                  "DocumentDB",
+                ]}
+              >
+                <Block label="문제">
+                  Maplestory Universe의 거래·민팅·전송 이력은 하나의 서비스에
+                  쌓이지만, 요청 측(tracker)과 체인 측(watcher) 두 소스에서 별도
+                  이벤트가 순서 보장 없이 도착하고, 같은 블록 시각의 이벤트가
+                  중복으로 올 수 있었습니다. 그 위에 추가되는 <b>크로스체인 자산
+                  전송(Swap &amp; Warp) 이력을 추적·조회하는 도메인은 아예
+                  없었습니다.</b>
+                </Block>
+                <Block label="설계">
+                  <li>
+                    <b>서비스 레이어 재정비 · 컨슈머 일반화 · 메시지 포맷 v2</b>
+                    — 이후 거래/민팅/전송/Swap&amp;Warp/USDT가 같은 적재 경로 위에
+                    차례로 올라감
+                  </li>
+                  <li>
+                    Swap &amp; Warp를 거래 이력과 분리된 <b>별도 도메인</b>으로
+                    정의하고, 게이트웨이 역할의 신규 BFF 구성
+                  </li>
+                  <li>
+                    두 소스 이벤트를 묶는 <b>상관관계 키</b>를 명시적으로 정하고,
+                    조회 키와 잠금 시드를 동일하게 맞춰 &ldquo;임의 row 매칭&rdquo;이
+                    구조적으로 불가능하도록 설계
+                  </li>
+                  <li>
+                    요청 정보(Info)와 결과(Result)의 동시 적재를 <b>Redis NX +
+                    PostgreSQL advisory lock</b>으로 직렬화, <b>DB 제약 전파로
+                    롤백 → 재시도 → 멱등 Modify 수렴 경로</b> 확보, 비정상
+                    이벤트는 DLQ로 분리
+                  </li>
+                </Block>
+                <Block label="결과">
+                  비동기 다중 소스의 순서 역전·중복을 제어하는 <b>표준 적재
+                  파이프라인</b>을 확립해, 이후 <b>USDT·워프 지연 같은 신규
+                  도메인을 코드 변경 최소화만으로 무중단 확장</b>했습니다.
+                </Block>
+              </ProjectCard>
+          </div>
+
+          <div className="space-y-3 text-[14px] leading-relaxed text-muted">
+              <p className="font-semibold uppercase tracking-[0.15em] text-foreground">
+                Core Engineering Highlights · 주요 기술 문제 해결 사례
+              </p>
+              <ul className="list-disc space-y-2 pl-5 marker:text-muted">
+                <li>
+                  <span className="font-semibold text-foreground">
+                    결제·인증
+                  </span>{" "}
+                  · Worldpay(FraudSight 3DS) 신용카드 인증·재인증 ·{" "}
+                  <b>Redis Lua</b>로 OTP 일일 3회 카운트 증가+만료 원자 처리 ·
+                  스테이블 코인(USDT) 선차감·롤백을 토큰별로 일반화
+                </li>
+                <li>
+                  <span className="font-semibold text-foreground">
+                    통합 알림
+                  </span>{" "}
+                  · MSU 통합 알림(SSE)에서 JWT 검증 자체 흡수, 대량 수신자를{" "}
+                  <b>gRPC streaming 500건 청크·5만 건 상한</b>으로 분리
+                </li>
+                <li>
+                  <span className="font-semibold text-foreground">
+                    운영 자동화·마이그레이션
+                  </span>{" "}
+                  · KYC 업체 변경에 따른 <b>전 사용자 데이터 이관 배치</b>
+                  (Argos → Sumsub, 구간 분할 병렬·재진입 가능한 커서·호출 한도
+                  관리, live 완료) · 디스코드 뱃지·역할 동기화 배치(
+                  <b>소요 시간 2시간 → 20분, 83% 단축</b>)
+                </li>
+                <li>
+                  <span className="font-semibold text-foreground">
+                    인프라·CI/CD·게이트웨이
+                  </span>{" "}
+                  · 담당 서비스의 GitLab CI · Dockerfile · Helm/K8s 매니페스트 ·
+                  DDL 운영 · Envoy gRPC → REST route · 인증 설정 ·{" "}
+                  <b>전사 proto 저장소 도메인별 모듈화 주도</b>
+                </li>
+              </ul>
+          </div>
+
+          <JobCard
+            period="2019.11 ~ 2023.10"
+            company="TURTLE KNOWLEDGE"
+            role="Backend Developer → AI Engineering R&D"
+          >
+            <p>
+              <b>2019.11–2021.12</b> 자사 B2B 백엔드(UNO-GATEWAY · UNO-MSP ·
+              MDB 등)를 Java/Spring으로 개발했습니다.
+            </p>
+            <p>
+              <b>2022.01–2023.10</b> NVIDIA Omniverse R&amp;D(IsaacSim/ROS)와
+              GPU 솔루션 운영을 담당했습니다.
+            </p>
+          </JobCard>
+        </div>
       </Section>
 
       <Section title="SKILL">
@@ -38,10 +282,6 @@ export default function Home() {
           <li className="flex items-center gap-2">
             <LevelBadge level={2} />
             <span>운영 경험 있음</span>
-          </li>
-          <li className="flex items-center gap-2">
-            <LevelBadge level={1} />
-            <span>기초 수준</span>
           </li>
         </ul>
         <div className="divide-y divide-rule border-y border-rule">
@@ -101,270 +341,22 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section title="EXPERIENCE">
-        <div className="space-y-8">
-          <JobCard
-            period="2023.11 ~ 현재"
-            company="NEXON UNIVERSE"
-            role="Backend Developer · Platform Development Team"
-          >
-            <p>
-              NEXON 자회사로, Maplestory IP를 기반으로 한 Web3 게임 플랫폼
-              <b> Maplestory Universe</b>를 만들고 있습니다. 크로스체인 전송
-              도메인(Swap &amp; Warp)과 정책 서비스를
-              신설·주도했고, 거래 이력·결제·알림·데이터 파이프라인·CI/CD에
-              함께 참여했습니다.
-            </p>
-          </JobCard>
-
-          <JobCard
-            period="2019.11 ~ 2023.10"
-            company="TURTLE KNOWLEDGE"
-            role="Backend Developer → AI Engineering R&D"
-          >
-            <p>
-              <b>2019.11–2021.12</b> 자사 B2B 백엔드(UNO-GATEWAY · UNO-MSP ·
-              MDB 등)를 Java/Spring으로 개발했습니다.
-            </p>
-            <p>
-              <b>2022.01–2023.10</b> NVIDIA Omniverse R&amp;D(IsaacSim/ROS)와
-              GPU 솔루션 운영을 담당했습니다.
-            </p>
-          </JobCard>
-        </div>
-      </Section>
-
-      <Section title="PROJECT">
-        <p className="mb-8 text-[12.5px] text-muted">
-          아래 프로젝트는 모두{" "}
-          <b className="text-foreground">NEXON UNIVERSE · Maplestory Universe</b>
-          에서의 작업입니다.
-        </p>
-        <div className="space-y-12">
-          <ProjectCard
-            period="2026.01 ~ 현재"
-            title="정책 서비스 신설"
-            summary="4개 서비스에 흩어져 있던 접근 제어·속도 제한·잠금·기능 토글을 단일 정책 서비스로 수렴. 설계부터 마이그레이션, 배포 자동화까지 전 과정 주도."
-            stack={["Go", "gRPC", "PostgreSQL", "Redis"]}
-          >
-            <Block label="문제">
-              ACL, Rate Limit, Lockout, Feature Flag가 서비스마다 다른 코드와
-              다른 저장소에 구현되어 있었습니다. 같은 정책을 바꾸려면 서비스
-              4곳을 각각 고쳐 배포해야 했고, 동작이 서로 어긋나는 일이
-              잦았습니다.
-            </Block>
-            <Block label="설계">
-              <li>
-                정책 서비스를 신설해 4개 서비스가 <b>단일 진입점</b>으로 정책을
-                조회하도록 구조 변경. 기존 제어 로직을 서비스별로 걷어내며
-                마이그레이션
-              </li>
-              <li>
-                <b>4개 서비스 담당자와 리뷰·합의로 범위를 맞춘 뒤 단계적
-                전환</b> — 각 서비스가 기존 코드를 걷어내고 sentinel 호출로
-                바꾸는 PR을 단일 서비스 단위로 함께 머지
-              </li>
-              <li>
-                코드 분기 대신 <b>런타임 설정 기반</b>으로 정책을 바꾸는 체계
-                도입. 설정은 부팅 시 주입하는 원칙을 세워 요청 경로에서의
-                설정 조회·패닉 가능성을 차단
-              </li>
-              <li>
-                ACL: 지갑/IP 화이트·블랙리스트 · Rate Limit: Sliding/Fixed
-                Window + jitter · Lockout: OTP 반복 실패 차단, 실패 횟수
-                유지/초기화를 정책으로 설정화 · Feature Flag: 런타임 변경
-              </li>
-            </Block>
-            <Block label="결과">
-              정책의 소스 오브 트루스가 한 곳으로 모이면서 서비스 간 동작
-              불일치가 구조적으로 사라졌고, 신규 서비스는 제어 로직을 다시
-              만들 필요 없이 sentinel에 붙기만 하면 되는 상태가 됐습니다.
-            </Block>
-          </ProjectCard>
-
-          <ProjectCard
-            period="2026.06 ~ 2026.11"
-            title="PostgreSQL CDC → Snowflake 파이프라인"
-            summary="배치 동기화와 애플리케이션 Kafka 발행에 기대던 분석 데이터 적재를 Debezium 기반 CDC로 교체. 발행 실패로 유실되던 경로를 없애고 실시간성을 확보. 설계·구현 담당."
-            stack={[
-              "Debezium",
-              "PostgreSQL replication slot",
-              "Kafka",
-              "Snowflake Stream/Task",
-            ]}
-          >
-            <Block label="문제">
-              PostgreSQL → Snowflake 적재는 주기 배치였고, 거래 확정 이벤트는
-              애플리케이션이 Kafka에 직접 발행했습니다. 발행이 실패하면 DB에는
-              남아 있지만 하류에는 영원히 도착하지 않는 데이터가 생겼고, 배치
-              주기만큼의 지연은 분석과 운영 조회를 느리게 만들었습니다.
-            </Block>
-            <Block label="설계">
-              <li>
-                Debezium 커넥터로 PostgreSQL 변경을 Kafka로 스트리밍하고,
-                Snowflake Stream/Task로 적재. <b>DB 커밋 자체가 발행</b>이 되어
-                애플리케이션 발행 실패라는 유실 경로가 사라짐
-              </li>
-              <li>
-                replication slot이 방치되면 WAL이 쌓여 운영 DB를 위협하므로,
-                slot <b>keepalive 배치</b>를 두어 유휴 구간에서도 slot이
-                전진하도록 관리
-              </li>
-              <li>
-                Snowflake Task를 조건부로 실행해 변경이 없는 구간에 웨어하우스
-                비용이 발생하지 않도록 최적화
-              </li>
-            </Block>
-            <Block label="결과">
-              적재 지연이 <b>일 단위 배치 주기에서 커밋 직후</b>로 줄었고,
-              Snowflake Task 조건부 실행으로 유휴 구간 비용도 함께 축소.
-            </Block>
-          </ProjectCard>
-
-          <ProjectCard
-            period="2026.07 ~ 2026.11"
-            title="LLM 에러 분석 봇"
-            summary="Slack에 쏟아지는 에러 알림을 LLM이 먼저 읽고 스레드에 원인·관련 변경·대응 포인터를 답하는 봇. 운영 에러의 1차 분류를 사람에서 봇으로 넘김."
-            stack={["Vertex AI (LLM)", "Slack API", "GitLab", "OpenSearch"]}
-          >
-            <Block label="문제">
-              운영 에러 알림은 사람이 하나씩 열어 로그를 찾고 최근 배포와
-              대조해야 했습니다. 알림 수가 늘수록 1차 분류에 드는 시간이
-              대응 속도를 결정했고, 야간·주말에는 그마저 지연됐습니다.
-            </Block>
-            <Block label="설계">
-              <li>
-                에러 알림 수신 → LLM 1차 분석 → Slack 스레드 자동 응답 흐름.
-                분석 시 <b>GitLab 최근 커밋 대조</b>와 <b>OpenSearch 히스토리</b>를
-                함께 넣어 &ldquo;무엇이 바뀌어서 터졌는지&rdquo;까지 답하게 구성
-              </li>
-              <li>
-                봇이 판단하기 어려운 케이스는 담당자에게 <b>escalation</b>하도록
-                해, 자동 응답이 오답을 확신하는 경로를 차단
-              </li>
-              <li>
-                <b>일/월 비용 상한 · PII 마스킹 · dedupe · 서킷브레이커</b>를
-                서비스 로직 밖의 독립 가드레일로 두고, 프롬프트는 실사용에서
-                본 실패 모드(외부 서비스 오류를 내부 재시작으로 오진 등)를
-                규칙으로 승격해 관리
-              </li>
-            </Block>
-            <Block label="결과">
-              <b>1차 분류가 사람 → 봇</b>으로 넘어가 야간·주말 대응 지연이
-              해소됐고, 반복되는 에러는 과거 분석을 재사용해 즉시 포인터를
-              제공.
-            </Block>
-          </ProjectCard>
-
-          <ProjectCard
-            period="2024.06 ~ 2025.09"
-            title="대용량 트랜잭션 이력 재정비 · 크로스체인 전송 도메인 신설"
-            summary="거래·민팅·전송 이력을 쌓는 대용량 서비스의 레이어·컨슈머·메시지 포맷을 재정비하고, 그 위에 크로스체인 전송 도메인(Swap & Warp)과 BFF를 처음부터 신설. 서로 다른 두 이벤트 소스가 만드는 순서 불일치와 중복을 일관성 있게 흡수하는 적재 경로를 만듦."
-            stack={[
-              "Go",
-              "gRPC",
-              "Kafka",
-              "PostgreSQL",
-              "Redis",
-              "MongoDB",
-              "DocumentDB",
-            ]}
-          >
-            <Block label="문제">
-              Maplestory Universe의 거래·민팅·전송 이력은 하나의 서비스에
-              쌓이지만, 요청 측(tracker)과 체인 측(watcher) 두 소스에서 별도
-              이벤트가 순서 보장 없이 도착하고, 같은 블록 시각의 이벤트가
-              중복으로 올 수 있었습니다. 그 위에 추가되는 <b>크로스체인 자산
-              전송(Swap &amp; Warp) 이력을 추적·조회하는 도메인은 아예
-              없었습니다.</b>
-            </Block>
-            <Block label="설계">
-              <li>
-                <b>서비스 레이어 재정비 · 컨슈머 일반화 · 메시지 포맷 v2</b>
-                — 이후 거래/민팅/전송/Swap&amp;Warp/USDT가 같은 적재 경로 위에
-                차례로 올라감
-              </li>
-              <li>
-                Swap &amp; Warp를 거래 이력과 분리된 <b>별도 도메인</b>으로
-                정의하고, 게이트웨이 역할의 신규 BFF 구성
-              </li>
-              <li>
-                두 소스 이벤트를 묶는 <b>상관관계 키</b>를 명시적으로 정하고,
-                조회 키와 잠금 시드를 동일하게 맞춰 &ldquo;임의 row 매칭&rdquo;이
-                구조적으로 불가능하도록 설계
-              </li>
-              <li>
-                요청 정보(Info)와 결과(Result)의 동시 적재를 <b>Redis NX +
-                PostgreSQL advisory lock</b>으로 직렬화, <b>DB 제약 전파로
-                롤백 → 재시도 → 멱등 Modify 수렴 경로</b> 확보, 비정상
-                이벤트는 DLQ로 분리
-              </li>
-            </Block>
-            <Block label="결과">
-              크로스체인 전송 이력이 사용자 관점에서 한 줄로 보이는 조회
-              기능을 라이브까지 제공했고, 이후 <b>USDT·워프 지연 같은 확장이
-              모두 같은 적재 경로 위에 얹혔습니다.</b>
-            </Block>
-          </ProjectCard>
-
-          <div className="space-y-3 text-[14px] leading-relaxed text-muted">
-            <p className="font-semibold uppercase tracking-[0.15em] text-foreground">
-              그 외 참여
-            </p>
-            <ul className="list-disc space-y-2 pl-5 marker:text-muted">
-              <li>
-                <span className="font-semibold text-foreground">
-                  결제·인증
-                </span>{" "}
-                · Worldpay(FraudSight 3DS) 신용카드 인증·재인증 ·{" "}
-                <b>Redis Lua</b>로 OTP 일일 3회 카운트 증가+만료 원자 처리 ·
-                스테이블 코인(USDT) 선차감·롤백을 토큰별로 일반화
-              </li>
-              <li>
-                <span className="font-semibold text-foreground">
-                  통합 알림
-                </span>{" "}
-                · MSU 통합 알림(SSE)에서 JWT 검증 자체 흡수, 대량 수신자를{" "}
-                <b>gRPC streaming 500건 청크·5만 건 상한</b>으로 분리
-              </li>
-              <li>
-                <span className="font-semibold text-foreground">
-                  운영 자동화·마이그레이션
-                </span>{" "}
-                · KYC 업체 변경에 따른 <b>전 사용자 데이터 이관 배치</b>
-                (Argos → Sumsub, 구간 분할 병렬·재진입 가능한 커서·호출 한도
-                관리, live 완료) · 디스코드 뱃지·역할 동기화 배치
-              </li>
-              <li>
-                <span className="font-semibold text-foreground">
-                  인프라·CI/CD·게이트웨이
-                </span>{" "}
-                · 담당 서비스의 GitLab CI · Dockerfile · Helm/K8s 매니페스트 ·
-                DDL 운영 · Envoy gRPC → REST route · 인증 설정 ·{" "}
-                <b>전사 proto 저장소 도메인별 모듈화 주도</b>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </Section>
-
-      <Section title="HOW I WORK" last>
+      <Section title="ENGINEERING PRINCIPLES" last>
         <ul className="list-disc space-y-3 pl-5 text-[14.5px] leading-relaxed marker:text-muted">
           <li>
-            <b>실패 경로부터 정합니다.</b> 선차감·롤백, DLQ·재시도, CDC처럼
-            &ldquo;잘못됐을 때 어떻게 복구할지&rdquo;를 먼저 정하고 구현합니다.
-            결함 수정은 피처와 분리해 먼저 머지합니다 — 피처가 롤백돼도 수정은
-            살아남아야 하니까요.
+            <b>장애 복구와 멱등성(Idempotency)을 아키텍처의 기본값으로
+            설계합니다.</b> 부분 실패 시의 보상 트랜잭션(롤백), DLQ 격리,
+            재시도 수렴 경로를 선제적으로 정의합니다.
           </li>
           <li>
-            <b>정책은 코드 분기가 아니라 설정으로 받습니다.</b> 정책이 바뀔
-            때 커밋이 아니라 설정이 바뀌어야 하고, 설정은 요청 경로가 아니라
-            부팅 시 주입합니다.
+            <b>비즈니스 정책과 애플리케이션 로직을 분리(Decoupling)합니다.</b>{" "}
+            변경이 잦은 제어 정책은 런타임 설정으로 외부화하되, 부팅 시점
+            검증으로 요청 경로의 안정성을 보장합니다.
           </li>
           <li>
-            <b>담당 서비스의 배포·매니페스트·DDL은 제 일입니다.</b> GitLab CI →
-            Helm/Kubernetes → Rundeck 배포, 대역마다 다른 배포 방식, DBA 검토를
-            거친 DDL까지 한 사람이 끝까지 봅니다.
+            <b>애플리케이션부터 인프라·데이터베이스까지 End-to-End
+            오너십을 가집니다.</b> CI/CD 파이프라인, K8s 매니페스트, 무중단
+            DDL 검토까지 서비스 생애주기 전반을 주도합니다.
           </li>
           <li>
             <b>요청 하나를 끝까지 따라갈 수 있어야 합니다.</b> 상관관계 키를
@@ -372,9 +364,10 @@ export default function Home() {
             배포 후 확인합니다.
           </li>
           <li>
-            <b>리뷰에서 나온 지적은 팀 원칙으로 승격합니다.</b>
-            &ldquo;외부 호출은 log-and-swallow 금지&rdquo; 같은 원칙을
-            문서화해 다음 작업에 반영합니다.
+            <b>개인의 문제 해결 경험을 팀의 엔지니어링 표준으로
+            자산화합니다.</b> 코드 리뷰와 장애 회고에서 도출된 안티패턴을
+            아키텍처 가이드라인으로 문서화하여 팀 전체의 코드 품질을
+            높입니다.
           </li>
         </ul>
       </Section>
@@ -397,8 +390,8 @@ function Header() {
         이승하 <span className="text-muted">· Seungha Lee</span>
       </h1>
       <p className="mt-3 text-[15px] leading-relaxed">
-        분산 시스템의 데이터 일관성과 운영 가능한 구조를 설계·구축하는
-        <b> 7년차 백엔드 엔지니어</b>.
+        대규모 분산 환경의 데이터 정합성과 고성능 백엔드 아키텍처를 설계하는
+        <b> 7년 차 엔지니어</b>.
       </p>
       <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
         <a href="mailto:shalwxy@gmail.com">shalwxy@gmail.com</a>
@@ -444,7 +437,7 @@ function Header() {
       <p className="mt-3 text-sm text-muted">
         이 문서는 요약본입니다. 프로젝트별 상세·설계 결정·도식은{" "}
         <a
-          href="https://shalwxy.github.io/career/"
+          href="https://persica.co.kr/career/"
           target="_blank"
           rel="noreferrer"
         >
@@ -454,13 +447,12 @@ function Header() {
       </p>
       <div className="mt-6 border-t border-rule pt-5">
         <p className="mb-3 text-[11px] uppercase tracking-[0.18em] text-muted">
-          Maplestory Universe · 최근 3년
+          Maplestory Universe · 최근 3년 · 핵심 기술 난이도
         </p>
-        <dl className="grid grid-cols-2 gap-y-3 sm:grid-cols-4 sm:gap-x-4">
-          <Stat value="3년" label="재직" />
-          <Stat value="6" label="주요 Go 서비스" />
-          <Stat value="4" label="신규 서비스·도메인·봇" />
-          <Stat value="5" label={<>배포 대역<br />dev·test·qa·stage·live</>} />
+        <dl className="grid grid-cols-1 gap-y-3 sm:grid-cols-3 sm:gap-x-4">
+          <Stat value="선점·멱등" label="분산 트랜잭션 정합성" />
+          <Stat value="무손실" label="CDC 데이터 파이프라인" />
+          <Stat value="E2E" label="K8s 인프라 오너십" />
         </dl>
       </div>
     </header>
