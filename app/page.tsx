@@ -415,7 +415,7 @@ function Header() {
           LinkedIn
         </a>
         <span>·</span>
-        <a href="https://shalwxy.github.io/" target="_blank" rel="noreferrer">
+        <a href="https://persica.co.kr/lab" target="_blank" rel="noreferrer">
           Blog
         </a>
       </div>
