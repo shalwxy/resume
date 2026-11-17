@@ -111,7 +111,7 @@ export default function Home() {
             <p>
               NEXON 자회사로, Maplestory IP를 기반으로 한 Web3 게임 플랫폼
               <b> Maplestory Universe</b>를 만들고 있습니다. 크로스체인 전송
-              도메인(Swap &amp; Warp)과 정책 서비스(api-sentinel)를
+              도메인(Swap &amp; Warp)과 정책 서비스를
               신설·주도했고, 거래 이력·결제·알림·데이터 파이프라인·CI/CD에
               함께 참여했습니다.
             </p>
@@ -143,7 +143,7 @@ export default function Home() {
         <div className="space-y-12">
           <ProjectCard
             period="2026.01 ~ 현재"
-            title="정책 서비스 신설 · api-sentinel"
+            title="정책 서비스 신설"
             summary="4개 서비스에 흩어져 있던 접근 제어·속도 제한·잠금·기능 토글을 단일 정책 서비스로 수렴. 설계부터 마이그레이션, 배포 자동화까지 전 과정 주도."
             stack={["Go", "gRPC", "PostgreSQL", "Redis"]}
           >
@@ -259,7 +259,7 @@ export default function Home() {
           <ProjectCard
             period="2024.06 ~ 2025.09"
             title="대용량 트랜잭션 이력 재정비 · 크로스체인 전송 도메인 신설"
-            summary="거래·민팅·전송 이력을 쌓는 대용량 서비스(api-activity)의 레이어·컨슈머·메시지 포맷을 재정비하고, 그 위에 크로스체인 전송 도메인(Swap & Warp)과 BFF를 처음부터 신설. 서로 다른 두 이벤트 소스가 만드는 순서 불일치와 중복을 일관성 있게 흡수하는 적재 경로를 만듦."
+            summary="거래·민팅·전송 이력을 쌓는 대용량 서비스의 레이어·컨슈머·메시지 포맷을 재정비하고, 그 위에 크로스체인 전송 도메인(Swap & Warp)과 BFF를 처음부터 신설. 서로 다른 두 이벤트 소스가 만드는 순서 불일치와 중복을 일관성 있게 흡수하는 적재 경로를 만듦."
             stack={[
               "Go",
               "gRPC",
@@ -280,13 +280,13 @@ export default function Home() {
             </Block>
             <Block label="설계">
               <li>
-                <b>api-activity 레이어 재정비 · 컨슈머 일반화 · 메시지 포맷 v2</b>
+                <b>서비스 레이어 재정비 · 컨슈머 일반화 · 메시지 포맷 v2</b>
                 — 이후 거래/민팅/전송/Swap&amp;Warp/USDT가 같은 적재 경로 위에
                 차례로 올라감
               </li>
               <li>
                 Swap &amp; Warp를 거래 이력과 분리된 <b>별도 도메인</b>으로
-                정의하고, 게이트웨이 역할의 신규 BFF(bff-swapnwarp) 구성
+                정의하고, 게이트웨이 역할의 신규 BFF 구성
               </li>
               <li>
                 두 소스 이벤트를 묶는 <b>상관관계 키</b>를 명시적으로 정하고,
