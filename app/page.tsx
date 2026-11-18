@@ -49,7 +49,7 @@ export default function Home() {
           <div className="space-y-10">
               <ProjectCard
                 period="2026.01 ~ 현재"
-                title="전사 트래픽 제어 정책 통합 플랫폼 구축"
+                title="플랫폼 전반 트래픽 제어 정책 통합 구축"
                 summary="정책 단일 진실 공급원(SSOT) 확보로 서비스 간 정합성 불일치 제거 및 신규 서비스 온보딩 리드타임 단축. 설계부터 마이그레이션, 배포 자동화까지 전 과정 주도."
                 stack={["Go", "gRPC", "PostgreSQL", "Redis"]}
               >
@@ -147,8 +147,9 @@ export default function Home() {
                     함께 넣어 &ldquo;무엇이 바뀌어서 터졌는지&rdquo;까지 답하게 구성
                   </li>
                   <li>
-                    봇이 판단하기 어려운 케이스는 담당자에게 <b>escalation</b>하도록
-                    해, 자동 응답이 오답을 확신하는 경로를 차단
+                    봇이 판단하기 어려운 케이스는 <b>담당 팀에 escalation을
+                    권고하는 답변</b>을 하도록 해, 자동 응답이 오답을 확신하는
+                    경로를 차단
                   </li>
                   <li>
                     <b>일/월 비용 상한 · PII 마스킹 · dedupe · 서킷브레이커</b>를
@@ -189,7 +190,7 @@ export default function Home() {
                 <Block label="설계">
                   <li>
                     <b>서비스 레이어 재정비 · 컨슈머 일반화 · 메시지 포맷 v2</b>
-                    — 이후 거래/민팅/전송/Swap&amp;Warp/USDT가 같은 적재 경로 위에
+                    — 이후 거래/민팅/전송/Swap&amp;Warp가 같은 적재 경로 위에
                     차례로 올라감
                   </li>
                   <li>
