@@ -103,7 +103,7 @@ export default function Home() {
                 <Block label="문제">
                   PostgreSQL → Snowflake 적재는 주기 배치였고, 거래 확정 이벤트는
                   애플리케이션이 Kafka에 직접 발행했습니다. 발행이 실패하면 DB에는
-                  남아 있지만 하류에는 영원히 도착하지 않는 데이터가 생겼고, 배치
+                  남아 있지만 다운스트림에는 영원히 도착하지 않는 데이터가 생겼고, 배치
                   주기만큼의 지연은 분석과 운영 조회를 느리게 만들었습니다.
                 </Block>
                 <Block label="설계">
