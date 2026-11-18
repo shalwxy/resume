@@ -451,7 +451,7 @@ function Header() {
       </p>
       <div className="mt-6 border-t border-rule pt-5">
         <p className="mb-3 text-[11px] uppercase tracking-[0.18em] text-muted">
-          Maplestory Universe · 최근 3년 · 핵심 기술 난이도
+          Maplestory Universe · 최근 3년 · 핵심 역량
         </p>
         <dl className="grid grid-cols-1 gap-y-3 sm:grid-cols-3 sm:gap-x-4">
           <Stat value="선점·멱등" label="분산 트랜잭션 정합성" />
