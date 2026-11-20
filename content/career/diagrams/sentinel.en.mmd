@@ -1,0 +1,24 @@
+%% title: Policy service — single owner of business policies
+flowchart LR
+    subgraph CALL[Runtime callers — read only]
+        AC[Account service<br/>auth-mail · card · sign-up limits<br/>OTP lockout · access control]
+        BC["Blockchain supporter<br/>withdrawal exemptions · country limits"]
+        AI["Error-triage bot<br/>error de-duplication"]
+        CS[Operations console<br/>Discord reply limit]
+    end
+    CON[Operations console · back office<br/>policy management]
+    subgraph SEN[Policy service ★]
+        RT[Runtime gRPC<br/>rate limit · lockout · access control · feature flags]
+        RF[Periodic policy refresh]
+        BOG[Back-office gRPC]
+    end
+    RD[("Redis<br/>call counts · failure counts")]
+    PG[(Policy store)]
+    AC & BC & AI & CS --> RT
+    RT --> RD
+    RT -- ACL · flags --> PG
+    RF --> PG
+    RF -.-> RT
+    CON --> BOG --> PG
+    classDef mine fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
+    class RT,RF,BOG,RD,PG mine

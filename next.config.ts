@@ -1,13 +1,11 @@
 import type { NextConfig } from "next";
-
-const isProd = process.env.NODE_ENV === "production";
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? (isProd ? "/resume" : "");
+import { BASE_PATH } from "./lib/basePath";
 
 const nextConfig: NextConfig = {
   output: "export",
   trailingSlash: true,
-  basePath,
-  assetPrefix: basePath || undefined,
+  basePath: BASE_PATH,
+  assetPrefix: BASE_PATH || undefined,
   images: {
     unoptimized: true,
   },

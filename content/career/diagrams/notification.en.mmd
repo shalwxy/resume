@@ -1,0 +1,29 @@
+%% title: Unified notifications — SSE and bulk-recipient streaming
+flowchart TB
+    AC[Account service<br/>KYC · re-verification · card · ban, etc.]
+    K[[Domain event topics<br/>marketplace · Swap/Warp results · reactor]]
+    CON[Operations console<br/>operator bulk notifications]
+    subgraph NT["Notification service · ★ = built by me · dashed = partial"]
+        G1["gRPC Notify<br/>added notification types ★"]
+        C[Domain consumers]
+        Q[[Internal queues · single / bulk]]
+        CR["Create notification<br/>URL · title · body generation ★"]
+        DB[(MongoDB)]
+        PS[(Redis pub/sub)]
+        SSE["SSE server<br/>verifies JWT itself ★"]
+        G["gRPC read · mark-as-read ★"]
+        ST["Back-office gRPC streaming ★<br/>recipients sent in chunks"]
+        SCH[Scheduled sender]
+        RDB[(Send settings · recipients)]
+    end
+    U[User browser]
+    AC -- gRPC --> G1 --> Q
+    K --> C --> Q
+    Q --> CR --> DB
+    CR --> PS --> SSE --> U
+    U --> G --> DB
+    CON --> ST --> RDB --> SCH --> Q
+    classDef mine fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
+    classDef part fill:#eff6ff,stroke:#2563eb,stroke-width:2px,stroke-dasharray:5 3,color:#1e3a8a
+    class ST mine
+    class G1,CR,SSE,G part

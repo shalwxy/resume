@@ -9,12 +9,15 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "markdown-it": "^15.0.3",
+    "markdown-it-attrs": "^5.0.1",
     "next": "16.4.3",
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",
+    "@types/markdown-it": "^14.2.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

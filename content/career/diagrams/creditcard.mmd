@@ -1,0 +1,40 @@
+%% title: 신용카드 인증 · 재인증 — Worldpay 3DS
+%% title_en: Card verification · re-verification — Worldpay 3DS
+sequenceDiagram
+    autonumber
+    participant U as 사용자
+    participant GW as API 게이트웨이
+    box rgb(219,234,254) ★ = 내가 구현한 부분
+    participant A as 계정 서비스 ★
+    end
+    participant R as Redis
+    participant W as Worldpay
+    participant N as 통합 알림 서비스
+    U->>GW: 카드 인증 요청
+    GW->>A: authorize
+    A->>R: 일일 시도 횟수 확인
+    alt 한도 초과
+        A-->>U: 한도 초과 안내
+    else 허용
+        A->>R: 시도 횟수 증가
+        A->>W: 0원 결제 · 3DS 인증 요청
+        W-->>A: 3DS 단계 필요
+        A-->>U: 3DS 단계 안내
+        U->>A: 3DS 단계 완료
+        A->>W: 최종 승인 요청
+        alt 4xx (사용자 측 실패)
+            W-->>A: 거절
+            A->>A: 거절 이력 저장
+            A->>N: 실패 알림
+            A-->>U: 200 + 실패 사유 코드
+        else 5xx (벤더 장애)
+            W-->>A: 장애
+            A->>R: 시도 횟수 되돌림
+            A-->>U: 에러 · 재시도 안내
+        else 승인
+            A->>A: 이상 시도 차단 확인
+            A->>A: 카드 토큰 · 이력 저장
+            A-->>U: 성공
+        end
+    end
+    note over GW,W: 재인증: 같은 경로 · 일일 한도 미적용 · 결과 알림

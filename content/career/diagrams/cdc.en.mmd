@@ -1,0 +1,13 @@
+%% title: PostgreSQL CDC → Snowflake
+flowchart LR
+    PG[(PostgreSQL)]
+    DZ[Debezium<br/>Kafka Connect]
+    K[[Kafka<br/>topic per table · DLQ]]
+    SK[Snowflake Sink]
+    ST[Stream → Task<br/>MERGE only when there is data]
+    T[(Analytics tables)]
+    KA[Replication-slot keepalive batch ★<br/>prevents WAL build-up on quiet tables]
+    PG --> DZ --> K --> SK --> ST --> T
+    KA -. scheduled .-> PG
+    classDef mine fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
+    class PG,DZ,K,SK,ST,T,KA mine

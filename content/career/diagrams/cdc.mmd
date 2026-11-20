@@ -1,0 +1,14 @@
+%% title: PostgreSQL CDC → Snowflake
+%% title_en: PostgreSQL CDC → Snowflake
+flowchart LR
+    PG[(PostgreSQL)]
+    DZ[Debezium<br/>Kafka Connect]
+    K[[Kafka<br/>테이블별 토픽 · DLQ]]
+    SK[Snowflake Sink]
+    ST[Stream → Task<br/>데이터가 있을 때만 MERGE]
+    T[(분석 테이블)]
+    KA[replication slot keepalive 배치 ★<br/>변경이 뜸한 테이블의 WAL 누적 방지]
+    PG --> DZ --> K --> SK --> ST --> T
+    KA -. 주기 실행 .-> PG
+    classDef mine fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
+    class PG,DZ,K,SK,ST,T,KA mine

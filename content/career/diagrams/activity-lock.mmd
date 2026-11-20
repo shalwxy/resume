@@ -1,0 +1,21 @@
+%% title: 동시 적재 정합성 — 이벤트 종류별 방어
+%% title_en: Concurrent ingestion — defence per event type
+flowchart TB
+    K[["Kafka 메시지<br/>재시도 · 순서 뒤바뀜으로 같은 건이 동시에 들어올 수 있음"]]
+    subgraph A["거래 · 자산 · Swap — 단건으로 끝나는 이벤트"]
+        R["Redis SET NX<br/>먼저 잡은 쪽만 처리"]
+        W1["DB 저장<br/>이미 저장된 건이면 성공 종료"]
+        R --> W1
+    end
+    subgraph B["Warp — 요청/결과가 뒤집혀 올 수 있는 이벤트"]
+        P["advisory lock<br/>같은 건은 한 번에 하나씩 처리"]
+        S["먼저 조회 → 없으면 생성, 있으면 수정<br/>먼저 온 쪽이 먼저 저장됨"]
+        P --> S
+    end
+    N["결과 이벤트 발행 → 알림 · 선차감 롤백"]
+    K --> R
+    K --> P
+    W1 --> N
+    S --> N
+    classDef mine fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
+    class R,W1,P,S,N mine

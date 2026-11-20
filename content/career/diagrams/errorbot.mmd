@@ -1,0 +1,29 @@
+%% title: 에러 분석 봇 — Slack 에러 1차 분석
+%% title_en: Error-triage bot — first-pass analysis in Slack
+sequenceDiagram
+    autonumber
+    participant S as Slack 에러 채널
+    box rgb(219,234,254) ★ = 내가 구현한 부분
+    participant B as 에러 분석 봇 ★
+    end
+    participant P as 정책 서비스
+    participant O as OpenSearch (분석 이력)
+    participant G as GitLab API
+    participant L as Vertex AI (LLM)
+    S->>B: 에러 알림 이벤트
+    B->>B: 잘린 메시지면 원문 재조회
+    B->>P: 같은 에러인지(중복) 확인
+    opt 같은 에러가 짧은 시간에 반복
+        B-->>S: escalation 경고 (1회)
+    end
+    alt 중복
+        B-->>S: 리액션만 (분석 생략)
+    else 신규
+        B->>O: 과거 분석 · 최초 감지 조회
+        B->>G: 스택 파일의 최근 커밋 조회
+        B->>L: 분석 요청 (동시 실행 제한 · 재시도)
+        L-->>B: 1차 분석
+        B->>O: 분석 저장
+        B-->>S: 스레드 답글 (+ 최초 감지 시각 · 기존 스레드 링크)
+    end
+    S->>B: 피드백 · 재분석 요청

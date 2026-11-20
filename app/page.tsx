@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
-
-const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+import { BASE_PATH } from "@/lib/basePath";
 
 export default function Home() {
   return (

@@ -1,0 +1,25 @@
+%% title: 정책 서비스 — 단일 소유자
+%% title_en: Policy service — single owner of business policies
+flowchart LR
+    subgraph CALL[런타임 호출자 — 조회만]
+        AC[계정 서비스<br/>인증메일 · 카드 · 가입 제한<br/>OTP 잠금 · 접근 제어]
+        BC["블록체인 서포터<br/>출금 예외 · 국가 제한"]
+        AI["에러 분석 봇<br/>에러 중복 판정"]
+        CS[운영 콘솔<br/>Discord 답장 제한]
+    end
+    CON[운영 콘솔 · 백오피스<br/>정책 관리]
+    subgraph SEN[정책 서비스 ★]
+        RT[런타임 gRPC<br/>호출 제한 · 잠금 · 접근 제어 · 기능 플래그]
+        RF[정책 주기 갱신]
+        BOG[백오피스 gRPC]
+    end
+    RD[("Redis<br/>호출 횟수 · 실패 횟수")]
+    PG[(정책 저장소)]
+    AC & BC & AI & CS --> RT
+    RT --> RD
+    RT -- 접근 제어 · 플래그 --> PG
+    RF --> PG
+    RF -.-> RT
+    CON --> BOG --> PG
+    classDef mine fill:#dbeafe,stroke:#2563eb,stroke-width:2px,color:#1e3a8a
+    class RT,RF,BOG,RD,PG mine
