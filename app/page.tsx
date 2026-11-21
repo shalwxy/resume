@@ -440,7 +440,7 @@ function Header() {
       <p className="mt-3 text-sm text-muted">
         이 문서는 요약본입니다. 프로젝트별 상세·설계 결정·도식은{" "}
         <a
-          href="https://persica.co.kr/career/"
+          href="https://persica.co.kr/resume/career/"
           target="_blank"
           rel="noreferrer"
         >
