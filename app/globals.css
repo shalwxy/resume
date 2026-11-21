@@ -45,21 +45,27 @@ body {
   line-height: 1.65;
 }
 
-a {
-  color: var(--accent);
-  text-underline-offset: 2px;
-}
+/* @layer base로 묶어야 text-background 같은 Tailwind 유틸리티(@layer utilities)가
+   이 기본 링크색을 덮어쓸 수 있다. 레이어가 없는 플레인 CSS는 명시도와 무관하게
+   항상 레이어드 스타일을 이기므로, 감싸지 않으면 PDF 버튼처럼 색을 지정해도 항상
+   --accent로 깨진다. */
+@layer base {
+  a {
+    color: var(--accent);
+    text-underline-offset: 2px;
+  }
 
-a:hover {
-  text-decoration: underline;
-}
+  a:hover {
+    text-decoration: underline;
+  }
 
-h1,
-h2,
-h3,
-h4 {
-  color: var(--foreground);
-  letter-spacing: -0.02em;
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--foreground);
+    letter-spacing: -0.02em;
+  }
 }
 
 @media print {

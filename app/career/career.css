@@ -90,7 +90,7 @@ html:has(.career){scroll-padding-top:76px}
 .career .modal .hd h3{margin:0;font-size:1rem;flex:1}
 .career .modal .hd button{border:1px solid var(--line);background:var(--soft);color:var(--fg);border-radius:8px;padding:4px 10px;cursor:pointer;font-size:.9rem}
 .career .modal .bd{overflow:auto;padding:18px 22px 22px;flex:1}
-.career .modal .bd .mm{min-height:120px;text-align:center}
+.career .modal .bd .mm{min-height:120px;text-align:center;background:#fff;border-radius:8px;padding:12px}
 .career .modal .bd .mm svg{height:auto}
 .career .modal .bd .mm.z{text-align:left}.career .modal .bd .mm.z svg{max-width:none!important;width:1800px!important}
 .career .modal .bd .legend{margin:12px 0 0;font-size:.8rem;color:var(--muted);text-align:left}

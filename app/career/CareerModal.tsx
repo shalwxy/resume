@@ -41,14 +41,17 @@ export default function CareerModal({ diagrams, lang }: { diagrams: DiagramEntry
 
   function loadMermaid(): Promise<MermaidLib> {
     if (lib.current) return lib.current;
-    const dark = window.matchMedia?.("(prefers-color-scheme:dark)").matches;
     lib.current = new Promise((resolve, reject) => {
       const s = document.createElement("script");
       s.src = MERMAID_CDN;
       s.onload = () => {
         window.mermaid!.initialize({
           startOnLoad: false,
-          theme: dark ? "dark" : "neutral",
+          // 일부 도식(.mmd)이 강조 박스 색을 rgb(219,234,254) 같은 밝은 값으로
+          // 하드코딩해 둬서, 다크 테마(밝은 글씨)를 쓰면 그 박스 안 글씨가
+          // 거의 안 보일 정도로 대비가 깨진다. 페이지 다크모드와 무관하게
+          // 항상 밝은 배경을 전제로 한 테마로 고정한다.
+          theme: "neutral",
           securityLevel: "strict",
           fontFamily: "inherit",
           flowchart: { htmlLabels: true, curve: "basis", padding: 12, nodeSpacing: 34, rankSpacing: 44 },
